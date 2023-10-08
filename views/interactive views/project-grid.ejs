@@ -1,0 +1,170 @@
+<%- include('../partials/loading.ejs')%>
+<div class="container text-center">
+  <form action="/project" id="dataForm" method="post">
+    <input type="hidden" name="project_id" value="CHE"/>
+  </form>
+  <!-- Repeating unis  -->
+  <script>
+    const gridContainer= document.querySelector("div.container");
+    const loadingView= document.querySelector("div.loading-welcome-screen");
+    const client_socket= io();
+    gridContainer.appendChild(loadingView);
+    client_socket.emit('get_all_projects',"");
+    client_socket.on('project_list', function (data){
+      let currentRowHolder= null;
+      if(data.constructor.toString().includes('Array'))
+       {
+        gridContainer.removeChild(loadingView);
+        
+       
+        
+         
+        for(let i=0;i<data.length;i++){
+          //initiating cell block
+          const newColumn= document.createElement("div");
+            newColumn.classList.add("col-4","project-img-holder");
+             
+            const imgContainer= document.createElement("div");
+            imgContainer.classList.add("project-img-container");
+            const projectDetails= document.createElement("div");
+            projectDetails.classList.add("project-details");
+            const heading2= document.createElement("h2");
+           
+           
+          //binding the data 
+          heading2.innerHTML= data[i].project_name.toLowerCase();
+          const imageURL=  data[i].project_image ?? '/images/background.jpg';
+          imgContainer.style.backgroundImage= `url(${imageURL})`; 
+          
+          //process the structure
+           
+          projectDetails.appendChild(heading2);
+          const spanList= data[i].languages_used.split(',');
+          for(spData of spanList){
+           const spanContent= document.createElement("span"); 
+           spanContent.classList.add("breadcrumb");
+           spanContent.innerHTML= spData;
+           projectDetails.appendChild(spanContent);
+          } 
+            imgContainer.appendChild(projectDetails);
+            newColumn.appendChild(imgContainer);
+            projectDetails.addEventListener('click',()=>{
+                 const formData= document.getElementById('dataForm');
+                 formData.elements['project_id'].value=data[i].project_id;
+                 formData.submit();
+            });
+            
+           
+           
+          if(i%3==0){
+            if(currentRowHolder!=null)
+              gridContainer.appendChild(currentRowHolder);
+            currentRowHolder= document.createElement("div");
+            currentRowHolder.classList.add("row");
+            //finally add the completed cell to the row
+            
+            currentRowHolder.appendChild(newColumn);
+          }
+          else{
+            currentRowHolder.appendChild(newColumn);  
+          }
+        }
+        gridContainer.appendChild(currentRowHolder);
+       }
+      else if(data.constructor.toString().includes("String"))
+      {
+         console.log(data);
+      }
+      else{
+        console.log(`The data is not as expected the type is ${data.constructor.toString()}`);
+      } 
+    });
+   
+    
+    // fetch("http://localhost:3000/getProjectData").then((response)=>{
+    //   return response.json();
+    // }).then((data)=>{
+    //   const typeInfo= data.constructor.toString();
+    //   let currentRowHolder=null; 
+    //   if(typeInfo.includes("Array"))
+    //    {
+    //     gridContainer.removeChild(loadingView);
+    //     for(let i=0;i<data.length;i++){
+    //       //initiating cell block
+    //       const newColumn= document.createElement("div");
+    //         newColumn.classList.add("col-4","project-img-holder");
+    //         const imgContainer= document.createElement("div");
+    //         imgContainer.classList.add("project-img-container");
+    //         const projectDetails= document.createElement("div");
+    //         projectDetails.classList.add("project-details");
+    //         const heading2= document.createElement("h2");
+           
+           
+    //       //binding the data 
+    //       heading2.innerHTML= data[i].project_name.toLowerCase();
+    //       const imageURL=  data[i].project_image ?? '/images/background.jpg';
+    //       imgContainer.style.backgroundImage= `url(${imageURL})`; 
+          
+    //       //process the structure
+           
+    //       projectDetails.appendChild(heading2);
+    //       const spanList= data[i].languages_used.split(',');
+    //       for(spData of spanList){
+    //        const spanContent= document.createElement("span"); 
+    //        spanContent.classList.add("breadcrumb");
+    //        spanContent.innerHTML= spData;
+    //        projectDetails.appendChild(spanContent);
+    //       } 
+    //         imgContainer.appendChild(projectDetails);
+    //         newColumn.appendChild(imgContainer);
+           
+    //       if(i%3==0){
+    //         if(currentRowHolder!=null)
+    //           gridContainer.appendChild(currentRowHolder);
+    //         currentRowHolder= document.createElement("div");
+    //         currentRowHolder.classList.add("row");
+    //         //finally add the completed cell to the row
+            
+    //         currentRowHolder.appendChild(newColumn);
+    //       }
+    //       else{
+    //         currentRowHolder.appendChild(newColumn);  
+    //       }
+    //     }
+    //     gridContainer.appendChild(currentRowHolder);
+    //    }
+    //   else
+    //    {
+    //     //Expected an Array Got another 
+    //     console.error(`The data recieved at line 20 project-grid.ejs is not as Expected and is ${typeInfo}`);
+    //    } 
+       
+    // })
+    //   .catch((reject)=>{
+    //     //Rejected from the server end
+    //     console.error(`The data fetch request was rejected with msg ${reject}`);
+    //   });
+  </script>
+  <!-- <div class="row">
+    <div class="col-4 project-img-holder">
+      <div class="project-img-container">
+          <div class="project-details">
+             <h2>Project Title</h2>
+             <span class="breadcrumb">Java</span>  
+          </div>       
+      </div>
+    </div>
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+  </div>
+  <div class="row">
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+  </div>
+  <div class="row">
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
+  </div> -->
+</div>

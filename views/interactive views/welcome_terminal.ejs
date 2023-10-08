@@ -1,0 +1,37 @@
+<div class="grey-terminal-welcome">
+    <img id="prompt-img" src="/images/loading.gif"  alt="Namaste"/>
+    <div id="text"></div> 
+    <div class="img-container" id="image_id">
+      <img id="welcome-robot-img" src="/images/robot.gif" id="namaste-img"/>
+      <img id="welcome-robot-img" src="/images/arrow.png"/>
+    </div>
+    
+</div>
+<script>
+    let say= "Welcome to the place of my facinating Software Projects and Experiences. My name is Aniket Poptani Software Engineer from the inception, lets get started > "
+    let charIndex = 0;
+    let container;
+    let textToType;
+    let typeTime=100;
+    function callback(){
+      document.getElementById('image_id').style.display='flex';
+    }
+    function startTyping(inputContainer, textToTypeP,time){
+        container= inputContainer;
+        textToType= textToTypeP;
+        typeTime= time;
+        type();
+        
+    }
+    function type() {
+        if (charIndex < textToType.length) {
+            container.textContent += textToType.charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typeTime); // Adjust typing speed here (milliseconds)
+        }
+        else{
+          callback();
+        }
+    }
+    startTyping(document.getElementById('text'),say,20);
+</script>
