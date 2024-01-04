@@ -1,3 +1,4 @@
+// Server Side Script 
 const express= require('express');
 const path = require('path');
 const http = require('http');
@@ -8,6 +9,7 @@ const app= express();
 const realTimeService= http.createServer(app);
 const socket= socketIO(realTimeService);
 const port= process.env.PORT || 3000;
+
 //Static Files 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));

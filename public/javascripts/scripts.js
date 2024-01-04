@@ -1,4 +1,4 @@
-
+//FrontEnd JavaScript 
 
 const socket= io();
 function extractInput(view_id){

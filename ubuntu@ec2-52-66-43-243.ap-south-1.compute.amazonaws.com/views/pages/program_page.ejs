@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script  src="/socket.io/socket.io.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    
+  </head>
+  <body class="bodyBackground">
+    
+    <section>
+      <div class="side_content_box">
+        <p id="database_output" class="transparent_scroll">
+          Project name
+        </p>
+      </div>
+      <div class="side_container">
+        <div class="top_content transparent_scroll">
+          <h1 id="heading">
+           
+          </h1>
+        </div>
+        <div id="code_box" class="center-box transparent_scroll">
+          <!-- Content inside the terminal box -->
+          <script src="/javascripts/type_writer.js"></script>
+          <script src="/javascripts/scripts.js"></script>
+          <script>
+            const dat= '<%= data%>';
+            console.log(`data at new page ${dat.constructor.toString()}`);
+            //call the function for dispalying the initial run results.
+            runcode(dat);
+            runStaticCode(dat);
+          </script>
+        </div>
+        <div class="bottom_content">
+          <input type="text" id="input_args" name="input_field">
+          <button class="btn" onclick="runcode(dat)"><i class="fa fa-play"></i></button>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

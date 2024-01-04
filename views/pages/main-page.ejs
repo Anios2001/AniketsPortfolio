@@ -8,23 +8,23 @@
     <div class="head_space"></div>
     <main>
       <!-- Carousel start from here -->
-      <div id="carouselExample" class="carousel slide">
+      <div id="carouselExample" class="carousel slide" data-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
           <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
          <div class="carousel-inner">
-          <div class="carousel-item ">
+          <div class="carousel-item active">
             <div class="centered">
              <!-- welcome_terminal.ejs here -->
              <%- include('../interactive views/welcome_terminal.ejs') %>
              
-            <!-- Carousel ends here -->
-          </main>
+            
+          
             </div>
           </div>
-          <div id="viewholder_projects" class="carousel-item active">
+          <div id="viewholder_projects" class="carousel-item">
             <!-- JavaScript must start from here.... -->
             <!-- Get data from data base and show it here  -->
             <!-- loading.ejs is the placeholder-->
@@ -52,16 +52,16 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
-      </section>
+    </main>
      
-    <%- include('../partials/footer')%>
+  <%- include('../partials/footer')%>
     
-    <script
+  <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
       defer
-    ></script>
+  ></script>
      
    
   </body>

@@ -1,64 +1,98 @@
-const mysql= require('mysql');
-
-const connection = mysql.createConnection({
+const mysql= require('mysql2/promise');
+let connection= null;
+const MAX_CONNECTION_ATTEMPTS=2;
+async function connectToDatabse(){ 
+  try{
+    connection = await mysql.createConnection({
     host:"localhost",
-    user:"root",
-    password:"server_cmp_1",
+    user:"application_connection",
+    password:"app_#_key",
     database:"projects"
-});
+ });
+  console.log("Conneted to the database");
+  }
+  catch(error){
+   console.error(`Error connecting to database ${error}`);
+  }
+}
 
-connection.connect((error)=>{
-    if(error)
-     console.err(error);
-    console.log("Connection Success");
-});
-function getProjects(){
-   const query= "Select * from pro_list;"; 
-   return new Promise(function (resolve,reject){
-      connection.query(query, function(error,results){
-        //Error string on failiure
-        if(error)
-         reject(`Error executing query :${query}:`);
-        //Array of database objects {project_id:String,project_name:String,languages_used:String,
-        //project_file_name:String,short_desc:String,desc_file:String}
-        // console.log(results.constructor);
-        resolve(results);
-      });
-   });
+
+async function getProjects(){
+  let tryToConnect=0;
+  while(connection === null && tryToConnect<MAX_CONNECTION_ATTEMPTS ){
+   console.log(`Trying to connect to database iteration (${tryToConnect+1})`); 
+   await connectToDatabse();
+   tryToConnect++;
+  } 
+  const query= "Select * from pro_list;"; 
+   try{
+     const [rows,fields] = await connection.execute(query);
+     return rows;
+   }
+   catch(queryError){
+    console.error(`Error executing: ${query} --> ${queryError}`);
+    
+    return "Error in query Execution";
+   }
 }
-function getProjectFileName(PROJECT_ID){
+async function getProjectFileName(PROJECT_ID){
  // console.log(`INPUT ${PROJECT_ID}`);
+ let tryToConnect=0;
+ while(connection === null && tryToConnect<MAX_CONNECTION_ATTEMPTS ){
+  console.log(`Trying to connect to database iteration (${tryToConnect+1})`); 
+  await connectToDatabse();
+  tryToConnect++;
+ } 
   const query = `Select project_file_name from pro_list WHERE project_id='${PROJECT_ID}';`;
-  return new Promise(function (resolve, reject){
-    connection.query(query, function(error,results){
-      if(error)
-       reject(`Error executing query: ${query}`);
-      console.log(results);
-      resolve(results[0].project_file_name);
-    })
-  });
+  try{
+     const [rows,fields] = await connection.execute(query);
+     
+     return rows[0].project_file_name;
+   }
+   catch(queryError){
+    console.error(`Error executing: ${query} --> ${queryError}`);
+   
+    return "Error in query Execution";
+   }
 }
-function getProjectDescription(PROJECT_ID){
+async function getProjectDescription(PROJECT_ID){
   // console.log(`INPUT ${PROJECT_ID}`);
+  let tryToConnect=0;
+  while(connection === null && tryToConnect<MAX_CONNECTION_ATTEMPTS ){
+   console.log(`Trying to connect to database iteration (${tryToConnect+1})`); 
+   await connectToDatabse();
+   tryToConnect++;
+  } 
    const query = `Select desc_file from pro_list WHERE project_id='${PROJECT_ID}';`;
-   return new Promise(function (resolve, reject){
-     connection.query(query, function(error,results){
-       if(error)
-        reject(`Error executing query: ${query}`);
-       //console.log(results);
-       resolve(results[0].desc_file);
-     })
-   });
+   try{
+     const [rows,fields] = await connection.execute(query);
+     
+     return rows[0].desc_file;
+   }
+   catch(queryError){
+    console.error(`Error executing: ${query} --> ${queryError}`);
+   
+    return "Error in query Execution";
+   }
  }
-function getProjectTitle(PROJECT_ID){
-  const query = `Select project_name from pro_list WHERE project_id='${PROJECT_ID}';`;
-   return new Promise(function (resolve, reject){
-     connection.query(query, function(error,results){
-       if(error)
-        reject(`Error executing query: ${query}`);
-       //console.log(results);
-       resolve(results[0].project_name);
-     })
-   });
+async function getProjectTitle(PROJECT_ID){
+  let tryToConnect=0;
+  while(connection === null && tryToConnect<MAX_CONNECTION_ATTEMPTS ){
+   console.log(`Trying to connect to database iteration (${tryToConnect+1})`); 
+   await connectToDatabse();
+   tryToConnect++;
+  } 
+  const query = `Select desc_file from pro_list WHERE project_id='${PROJECT_ID}';`;
+   try{
+     const [rows,fields] = await connection.execute(query);
+     
+     return rows[0].project_name;
+   }
+   catch(queryError){
+    console.error(`Error executing: ${query} --> ${queryError}`);
+   
+    return "Error in query Execution";
+   }
 } 
+
 module.exports = {getProjects, getProjectFileName, getProjectDescription, getProjectTitle};
