@@ -34,7 +34,9 @@ function buildFetchAndExecute(PROJECT_ID){
 }
 socket.on('server_response', (message) => {
     //console.log(message);
-    startTyping(document.getElementById('code_box'),message);
+    const textDecoder= new TextDecoder('utf-8');
+    const printableMessage= textDecoder.decode(message);
+    startTyping(document.getElementById('code_box'),printableMessage);
   });
 socket.on('enter_heading',(title)=>{
     document.getElementById('side_container').innerText= title;

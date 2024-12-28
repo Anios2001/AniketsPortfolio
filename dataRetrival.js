@@ -1,14 +1,22 @@
 const mysql= require('mysql2/promise');
+const { Connector } = require("@google-cloud/cloud-sql-connector");
+
 let connection= null;
 const MAX_CONNECTION_ATTEMPTS=2;
 async function connectToDatabse(){ 
   try{
-    connection = await mysql.createConnection({
-    host:"localhost",
-    user:"application_connection",
-    password:"app_#_key",
-    database:"projects"
- });
+    const connector = new Connector();
+    let clientOpts = await connector.getOptions({
+      instanceConnectionName: "micro-spanner-404517:asia-south1:mysqlcloud",
+      ipType: "PUBLIC",
+    });
+    let pool = await mysql.createPool({
+      ...clientOpts,
+      user: "aniket",
+      password: "aniket9644#",
+      database: "projects",
+    });
+    connection = await pool.getConnection();
   console.log("Conneted to the database");
   }
   catch(error){

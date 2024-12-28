@@ -19,7 +19,7 @@
 const { spawn } = require('child_process');
 function runPythonScript(file_name,args){
 //Built a command structure 
-  const command = 'C:\\Python27\\python.exe';
+  const command = 'python';
   const final_url= "code repository/" + file_name ;
   const ARGS= args.split('-');
   const newARGS= ARGS.map((data)=>{
@@ -36,6 +36,7 @@ function runPythonScript(file_name,args){
     return new Promise((resolve, reject)=>{
       const childProcess = spawn(command, FINAL_ARGUMENT);
       let output='';
+      const encoder = new TextEncoder();
       childProcess.stdout.on('data', (data) => {
         
         output+=data;
@@ -48,9 +49,10 @@ function runPythonScript(file_name,args){
       
       childProcess.on('close', (code) => {
        // output = output.replace(/\n/g, '<br>')
+        const encodedAnswer = encoder.encode(output);
         console.log(output);
         console.log(`Child process exited with code ${code}`);
-        resolve(output);
+        resolve(encodedAnswer);
       });
       childProcess.on('error',(error)=>{
         console.log(error);

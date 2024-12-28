@@ -1,4 +1,5 @@
 // Server Side Script 
+
 const express= require('express');
 const path = require('path');
 const http = require('http');
@@ -8,7 +9,7 @@ const level2= require('./code_runner/satisfy_request');
 const app= express();
 const realTimeService= http.createServer(app);
 const socket= socketIO(realTimeService);
-const port= process.env.PORT || 3000;
+const port= 80;
 
 //Static Files 
 app.use(express.static('public'));
