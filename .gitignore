@@ -1,2 +1,5 @@
 # Local Netlify folder
 .netlify
+node_modules
+.vscode
+ubuntu@ec2-52-66-43-243.ap-south-1.compute.amazonaws.com
