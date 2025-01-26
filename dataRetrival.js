@@ -90,7 +90,7 @@ async function getProjectTitle(PROJECT_ID){
    await connectToDatabse();
    tryToConnect++;
   } 
-  const query = `Select desc_file from pro_list WHERE project_id='${PROJECT_ID}';`;
+  const query = `Select project_name from pro_list WHERE project_id='${PROJECT_ID}';`;
    try{
      const [rows,fields] = await connection.execute(query);
      
