@@ -7,7 +7,7 @@ async function connectToDatabse(){
   try{
     const connector = new Connector();
     let clientOpts = await connector.getOptions({
-      instanceConnectionName: "micro-spanner-404517:asia-south1:mysqlcloud",
+      instanceConnectionName: "alien-bricolage-448915-f6:us-central1:chaigptsqlcloud",
       ipType: "PUBLIC",
     });
     let pool = await mysql.createPool({
@@ -90,7 +90,7 @@ async function getProjectTitle(PROJECT_ID){
    await connectToDatabse();
    tryToConnect++;
   } 
-  const query = `Select desc_file from pro_list WHERE project_id='${PROJECT_ID}';`;
+  const query = `Select project_name from pro_list WHERE project_id='${PROJECT_ID}';`;
    try{
      const [rows,fields] = await connection.execute(query);
      
