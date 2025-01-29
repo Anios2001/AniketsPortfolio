@@ -4,6 +4,7 @@ html{
 body{
     background-color: #1b044e;
     background-image: url('/images/programming.jpg');
+    margin-top: 2%;
 }
 .bodyBackground{
   display: flex;
@@ -43,7 +44,17 @@ body{
 h1{ 
     color: azure;
 }
-
+.dropdown-item{
+    text-decoration: none;
+    color:black;
+    font-family: "Source Code Pro",monospace;
+}
+.nav-link.dropdown-toggle.show{
+  color:white;
+}
+.nav-link.dropdown-toggle{
+  color:white;
+}
 .loading-welcome-screen {
     width: 80vw; /* Change this value to your desired width */
     height: 70vh; /* Change this value to your desired height */
@@ -95,6 +106,9 @@ h1{
 #image_id{
     display: none;
 }
+.nav-style{
+    height:20%;
+}
 .nav-link{
     color: white;
 }
@@ -102,10 +116,14 @@ h1{
     letter-spacing: 0.5px;
     color: white;
 }
+.navbar-toggler{
+  background-color: azure;
+  
+}
 .btn-grp{
     display: flex;
-    justify-content: space-between;
-    width: 25%;
+    justify-content: space-evenly;
+    
     margin: 20px;
     margin-right: 40px;
 }
@@ -115,12 +133,43 @@ h1{
     padding: 12px 25px;
     font: 700 12px Arial,sans-serif;
     text-transform: uppercase; 
+    text-decoration: none;
+    display: flex;
+    align-items: center;
     letter-spacing: 2px;
 }
 .black-btn:hover{
     background-color: white;
     color: black;   
 }
+@media (min-width: 786px){
+#githubBtn .text{
+  display: inline;   
+}
+#githubBtn img{
+  display: none;
+}
+#linkedinBtn img{
+  display: none;
+}
+#linkedinBtn .text{
+  display: inline;
+}
+}
+@media (max-width: 786px){
+  #githubBtn .text{
+    display: none;   
+  }
+  #githubBtn img{
+    display: inline;
+  }
+  #linkedinBtn img{
+    display: inline;
+  }
+  #linkedinBtn .text{
+    display: none;
+  }
+  }
 .centered{
     display: flex;
     justify-content: center;
@@ -137,7 +186,7 @@ h1{
     height: 100%;
     border-radius: 12px;
     background-size: contain;
-    
+    cursor: pointer;
 }
 .project-img-holder{
     min-height: 30vh;
@@ -153,6 +202,7 @@ h1{
     padding: 2px;
     text-align: start;
     font: bold Arial,monospace;
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.500);
 }
 .breadcrumb{

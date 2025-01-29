@@ -1,11 +1,14 @@
 
 <div class="container text-center">
-  <form action="/project" id="dataForm" method="post">
-    <input type="hidden" name="project_id" value="CHE"/>
-  </form>
+  <div class="loading-welcome-screen">
+    <div class="spinner-grow">
+      <span class="sr-only"></span>
+    </div>
+  </div>
   <!-- Repeating unis  -->
   <script>
     const gridContainer= document.querySelector("div.container");
+    console.log(gridContainer.nodeName);
     const loadingView= document.querySelector("div.loading-welcome-screen");
     const client_socket= io();
     gridContainer.appendChild(loadingView);
@@ -145,26 +148,4 @@
     //     console.error(`The data fetch request was rejected with msg ${reject}`);
     //   });
   </script>
-  <!-- <div class="row">
-    <div class="col-4 project-img-holder">
-      <div class="project-img-container">
-          <div class="project-details">
-             <h2>Project Title</h2>
-             <span class="breadcrumb">Java</span>  
-          </div>       
-      </div>
-    </div>
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-  </div>
-  <div class="row">
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-  </div>
-  <div class="row">
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-    <div class="col-4 project-img-holder"><div class="project-img-container"></div></div>
-  </div> -->
 </div>
