@@ -83,6 +83,8 @@ h1{
 #welcome-robot-img{
     border-radius: 10px;
     display: inline;
+    height: auto;
+    max-width: 100%;
 }
 .img-container{
     width: 100%;
@@ -198,7 +200,9 @@ h1{
     border: #232221;
     border-radius: 20px;
   }
-
+  #heading{
+    color: black
+  }
   .transparent_scroll{
     overflow-y: auto;
   }
